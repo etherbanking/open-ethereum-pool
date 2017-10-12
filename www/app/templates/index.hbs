@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-5">
         <h1 style="font-size: 24px">
-          <strong>Open Ethereum Pool</strong>
+          <strong>Open EBC miner Pool</strong>
         </h1>
         <strong>Min. payout threshold: {{config.PayoutThreshold}}</strong>, Payouts run twice per day.<br/>
         <span class="label label-success">PROP</span> Stable and profitable pool with regular payouts.
@@ -40,8 +40,140 @@
   </div>
   <div>
     <hr/>
-    <h4 class="note note-info text-center">
-      ethminer.exe -F {{config.HttpHost}}:{{config.HttpPort}}/&lt;address&gt;/&lt;worker&gt; -G
-    </h4>
+	<div>
+			<h3 class="note note-info text-left">
+				<span class="label label-primary"> Mining directly using ethminer</span>
+			</h3>
+			
+			<ol>
+				<li>
+					<h4 class="label label-primary" > Download ethminer </h4>
+					
+					<ul>
+					 <li>
+						<a href="https://github.com/ethereum/webthree-umbrella/releases/download/v1.2.6/cpp-ethereum-windows-v1.2.6.exe">
+							<span class="fa fa-windows" aria-hidden="true">&nbsp;Download for Window</span>
+						</a>
+					 </li>
+					 <li>
+						<a href="http://www.ethdocs.org/en/latest/ethereum-clients/cpp-ethereum/installing-binaries/linux-ubuntu-ppa.html">
+							 <span class="fa fa-linux" aria-hidden="true">&nbsp;Download for Linux </span>
+						 </a>
+					 </li>
+					 <li>
+						<a href="https://github.com/ethereum/webthree-umbrella/releases/download/v1.2.6/cpp-ethereum-osx-yosemite-v1.2.6.dmg">
+							 <span class="fa fa-apple" aria-hidden="true">&nbsp;Download for MacOS</span>
+						</a>
+					 </li>
+					 <li>
+						<a href="https://github.com/ethereum/webthree-umbrella/releases" rel="nofollow" target="_blank">
+							<span class="fa fa-github" aria-hidden="true">
+							&nbsp;Source code on Github
+							</span>
+						 </a>
+					 </li>					 
+					</ul>					
+				</li>
+				<li>
+					<h4 class="label label-primary">Launch ethminer</h4>
+					<p>
+					Windows:<code>ethminer.exe -F {{config.HttpHost}}:{{config.HttpPort}}/address/worker -G --farm-recheck 200</code>    
+					<br/>
+					Unix:<code>./ethminer -F {{config.HttpHost}}:{{config.HttpPort}}/address/worker -G --farm-recheck 200</code>
+					</p>
+				</li>				
+			</ol>	
+	</div>
+	<div>
+	<h3 class="note note-info text-left">
+        <span class="label label-primary"> Stratum Mining using a proxy </span>
+   </h3>
+   <ol>
+		<li>
+					<h4 class="label label-primary" > Download ethminer </h4>
+					
+					<ul>
+					 <li>
+						<a href="https://github.com/ethereum/webthree-umbrella/releases/download/v1.2.6/cpp-ethereum-windows-v1.2.6.exe">
+							<span class="fa fa-windows" aria-hidden="true">&nbsp;Download for Window</span>
+						</a>
+					 </li>
+					 <li>
+						<a href="http://www.ethdocs.org/en/latest/ethereum-clients/cpp-ethereum/installing-binaries/linux-ubuntu-ppa.html">
+							 <span class="fa fa-linux" aria-hidden="true">&nbsp;Download for Linux </span>
+						 </a>
+					 </li>
+					 <li>
+						<a href="https://github.com/ethereum/webthree-umbrella/releases/download/v1.2.6/cpp-ethereum-osx-yosemite-v1.2.6.dmg">
+							 <span class="fa fa-apple" aria-hidden="true">&nbsp;Download for MacOS</span>
+						</a>
+					 </li>
+					 <li>
+						<a href="https://github.com/ethereum/webthree-umbrella/releases" rel="nofollow" target="_blank">
+							<span class="fa fa-github" aria-hidden="true">
+							&nbsp;Source code on Github
+							</span>
+						 </a>
+					 </li>					 
+					</ul>					
+				</li>
+		<li>
+			<h4 class="label label-primary">Download proxy</h4>
+			
+			<ul>
+				 <li>
+					<a href="https://github.com/etherbanking/eth-proxy/files/1378343/eth-proxy-win-ebc.zip">
+					   <span class="fa fa-windows" >Download for Window</span>
+					</a>
+				 </li>
+				 <li>
+					<a href="https://github.com/etherbanking/eth-proxy/files/1378342/eth-proxy-linux-ebc.zip">
+						<span class="fa fa-linux" >Download for Unix </span>
+					</a>
+				 </li>					 
+				 <li>
+					<a href="https://github.com/etherbanking/eth-proxy/releases/tag/1.0" rel="nofollow" target="_blank">
+						<span class="fa fa-github" aria-hidden="true">
+						&nbsp;Source code on Github
+						</span>
+					</a>
+				 </li>					 
+			</ul>
+			
+			
+		</li>		
+		<li>
+				<h4 class="label label-primary">Conifg proxy</h4>
+				<p>Edit eth-proxy.conf and specify our pool's HOST: <code>{{config.HttpHost}} </code>PORT:<code>{{config.StratumHost}}</code> and your WALLET.</p>
+				<code>
+                    <span >WALLET = "your_wallet"</span> <br/>
+                    <span >POOL_HOST = "{{config.HttpHost}}"</span><br/>
+                    <span >POOL_PORT = {{config.StratumHost}}</span><br/>
+                    <span >HOST = "0.0.0.0"</span><br/>
+                    <span >PORT = 8080</span>
+				</code>
+		</li>
+		<li>
+				<h4 class="label label-primary">Launch proxy</h4>
+				<p>Window: start execute file <code>eth-proxy.exe</code><br/>
+				Linux run command <code> python eth-proxy.py </code>
+				</p>
+		</li>
+		<li>
+					<h4 class="label label-primary">Launch ethminer</h4>
+					<p>
+					Windows:<code>ethminer.exe -F {{config.HttpHost}}:{{config.HttpPort}}/address/worker -G --farm-recheck 200</code>    
+					<br/>
+					Unix:<code>./ethminer -F {{config.HttpHost}}:{{config.HttpPort}}/address/worker -G --farm-recheck 200</code>
+					</p>
+				</li>
+   </ol>
+		
+	</div>
+
+   
+
+
+
   </div>
 </div>
