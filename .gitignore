@@ -5,3 +5,5 @@ testnet.json
 /build/_workspace/
 /build/bin/
 .idea
+.project
+.settings/
